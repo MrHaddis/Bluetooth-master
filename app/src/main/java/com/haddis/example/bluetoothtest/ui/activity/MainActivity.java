@@ -1,4 +1,4 @@
-package com.haier.fridge.bletest_phone.ui.activity;
+package com.haddis.example.bluetoothtest.ui.activity;
 
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
@@ -20,12 +20,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.haier.fridge.bletest_phone.R;
-import com.haier.fridge.bletest_phone.help.Constants;
-import com.haier.fridge.bletest_phone.ui.adapter.BlueAdapter;
-import com.haier.fridge.bletest_phone.utils.bluetooth.BltConstant;
-import com.haier.fridge.bletest_phone.utils.bluetooth.BltManager;
-import com.haier.fridge.bletest_phone.utils.bluetooth.BluetoothChatService;
+import com.haddis.example.bluetoothtest.R;
+import com.haddis.example.bluetoothtest.help.Constants;
+import com.haddis.example.bluetoothtest.ui.adapter.BlueAdapter;
+import com.haddis.example.bluetoothtest.utils.bluetooth.BltConstant;
+import com.haddis.example.bluetoothtest.utils.bluetooth.BltManager;
+import com.haddis.example.bluetoothtest.utils.bluetooth.BluetoothChatService;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -77,6 +77,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private void initDate() {
         mBlueDeviceList = new ArrayList<>();
+        mBlueAdapter = new BlueAdapter(this, mBlueDeviceList);
+        mListView.setAdapter(mBlueAdapter);
+    }
+
+    private void initBlue() {
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBluetoothAdapter == null) {
             Toast.makeText(this, "该设备不支持蓝牙", Toast.LENGTH_SHORT).show();
@@ -86,23 +91,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(intent, 1111);
         } else {
+            initBluetooth();
             mTextViewBlueStatus.setText("蓝牙已开启");
         }
-
-        mBlueAdapter = new BlueAdapter(this, mBlueDeviceList);
-        mListView.setAdapter(mBlueAdapter);
-    }
-
-    private void initBlue() {
-        removePairDevice();
-        BltManager.getInstance().initBltManager(this);
-        BltManager.getInstance().checkBleDevice(this);
-        BltManager.getInstance().registerBltReceiver(this, registerBltReceiver);
-        BltManager.getInstance().registerBltReceiver2(this, registerBltFinishReceiver);
-        BltManager.getInstance().clickBlt(this, BltConstant.BLUE_TOOTH_CLEAR);
-        BltManager.getInstance().clickBlt(this, BltConstant.BLUE_TOOTH_SEARCH);
-        mChatService = new BluetoothChatService(MainActivity.this, mHandler);
-        mChatService.start();
     }
 
     private void setListener() {
@@ -118,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         if (requestCode == 1111) {
             if (RESULT_OK == resultCode) {
                 Log.d("MainActivity", "开启成功");
+                initBluetooth();
                 mTextViewBlueStatus.setText("蓝牙已开启");
             } else {
                 Log.d("MainActivity", "开启失败");
@@ -310,8 +302,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         mChatService.stop();
                     }
                 } else if (!mBluetoothAdapter.isEnabled()) {//未开启
-                    Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                    startActivityForResult(intent, 1111);
                     initBlue();
                 }
                 break;
@@ -335,5 +325,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             mTextViewSend.setText("发送指令成功");
 
         }
+    }
+
+    private void initBluetooth() {
+        BltManager.getInstance().initBltManager(this);
+//                BltManager.getInstance().checkBleDevice(this);
+        BltManager.getInstance().registerBltReceiver(this, registerBltReceiver);
+        BltManager.getInstance().registerBltReceiver2(this, registerBltFinishReceiver);
+        BltManager.getInstance().clickBlt(this, BltConstant.BLUE_TOOTH_CLEAR);
+//        BltManager.getInstance().clickBlt(this, BltContant.BLUE_TOOTH_SEARCH);
+        BltManager.getInstance().startSearchBltDevice(this);
+
+        mChatService = new BluetoothChatService(MainActivity.this, mHandler);
+        mChatService.start();
     }
 }

@@ -1,4 +1,4 @@
-package com.haier.fridge.bletest_phone.help;
+package com.haddis.example.bluetoothtest.help;
 
 /**
  * Created by haddis on 18-4-25.

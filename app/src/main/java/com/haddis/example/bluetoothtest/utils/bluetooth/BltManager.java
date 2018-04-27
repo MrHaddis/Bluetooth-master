@@ -1,4 +1,4 @@
-package com.haier.fridge.bletest_phone.utils.bluetooth;
+package com.haddis.example.bluetoothtest.utils.bluetooth;
 
 import android.annotation.TargetApi;
 import android.bluetooth.BluetoothAdapter;
@@ -17,7 +17,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.haier.fridge.bletest_phone.help.MyApplication;
+import com.haddis.example.bluetoothtest.help.MyApplication;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -445,7 +445,7 @@ public class BltManager {
     public void clickBlt(Context context, int status) {
         switch (status) {
             case BltConstant.BLUE_TOOTH_SEARCH://搜索蓝牙设备，在BroadcastReceiver显示结果
-                startSearthBltDevice(context);
+                startSearchBltDevice(context);
                 break;
             case BltConstant.BLUE_TOOTH_OPEN://本机蓝牙启用
                 if (getmBluetoothAdapter() != null)
@@ -512,9 +512,9 @@ public class BltManager {
      * <p/>
      * 注意：搜索时，你只能搜索传统蓝牙设备或者BLE设备，两者完全独立，不可同时被搜索。
      */
-    private boolean startSearthBltDevice(Context context) {
+    public boolean startSearchBltDevice(Context context) {
         //开始搜索设备，当搜索到一个设备的时候就应该将它添加到设备集合中，保存起来
-        checkBleDevice(context);
+//        checkBleDevice(context);
         //如果当前发现了新的设备，则停止继续扫描，当前扫描到的新设备会通过广播推向新的逻辑
         if (getmBluetoothAdapter().isDiscovering())
             stopSearthBltDevice();

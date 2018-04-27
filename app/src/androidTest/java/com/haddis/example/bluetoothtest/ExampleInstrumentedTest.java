@@ -1,4 +1,4 @@
-package com.haier.fridge.bletest_phone;
+package com.haddis.example.bluetoothtest;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

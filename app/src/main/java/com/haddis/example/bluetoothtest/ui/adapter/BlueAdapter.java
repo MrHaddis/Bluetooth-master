@@ -1,4 +1,4 @@
-package com.haier.fridge.bletest_phone.ui.adapter;
+package com.haddis.example.bluetoothtest.ui.adapter;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.haier.fridge.bletest_phone.R;
+import com.haddis.example.bluetoothtest.R;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.haier.fridge.bletest_phone.utils.bluetooth;
+package com.haddis.example.bluetoothtest.utils.bluetooth;
 
 import java.util.UUID;
 

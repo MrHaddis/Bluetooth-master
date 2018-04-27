@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.haier.fridge.bletest_phone.utils.bluetooth;
+package com.haddis.example.bluetoothtest.utils.bluetooth;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -27,7 +27,7 @@ import android.os.Message;
 import android.util.Log;
 
 
-import com.haier.fridge.bletest_phone.help.Constants;
+import com.haddis.example.bluetoothtest.help.Constants;
 
 import java.io.IOException;
 import java.io.InputStream;
